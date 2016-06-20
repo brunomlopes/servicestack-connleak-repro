@@ -2,7 +2,6 @@
 using PushNotifications.ServiceInterface;
 using ServiceStack;
 using ServiceStack.Caching;
-using ServiceStack.Text;
 
 namespace PushNotifications
 {
@@ -25,34 +24,11 @@ namespace PushNotifications
         /// <param name="container"></param>
         public override void Configure(Container container)
         {
-            RegisterPlugins();
-
-            RegisterDependencies(container);
-
-            SetupIdiomaticJavascriptOutput();
-        }
-
-        private void SetupIdiomaticJavascriptOutput()
-        {
-            JsConfig.EmitCamelCaseNames = true;
-        }
-
-        private void RegisterPlugins()
-        {
             Plugins.Add(new ServerEventsFeature
             {
                 NotifyChannelOfSubscriptions = false,
-                OnSubscribe = subscription =>
-                {
-                    // validate permissions
-                },
-                LimitToAuthenticatedUsers = false,
-                
             });
-        }
 
-        private static void RegisterDependencies(Container container)
-        {
             container.Register<ICacheClient>(new MemoryCacheClient());
         }
     }
