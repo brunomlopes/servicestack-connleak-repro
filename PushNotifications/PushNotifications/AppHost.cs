@@ -26,7 +26,10 @@ namespace PushNotifications
         {
             Plugins.Add(new ServerEventsFeature
             {
-                NotifyChannelOfSubscriptions = false,
+                // Uncomment this line, and then run on powershell:
+                /* 0..15 | % { curl.exe -m 1 "http://6finn/event-stream?channels=chan&t=1466451780049" }
+                 */
+                // NotifyChannelOfSubscriptions = false,
             });
 
             container.Register<ICacheClient>(new MemoryCacheClient());
